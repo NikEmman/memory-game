@@ -1,0 +1,6 @@
+.cardContainer img {
+  width: 200px; /* Specify your desired width */
+  height: 200px; /* Specify your desired height */
+  object-fit: cover; /* Ensures the images cover the specified dimensions without distortion */
+  margin: 10px; /* Add some margin if necessary */
+}
