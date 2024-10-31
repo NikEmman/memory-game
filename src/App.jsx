@@ -3,7 +3,9 @@ import "./App.css";
 import Form from "./Form";
 import fetchPhotos from "./data.js";
 import Card from "./Card.jsx";
+import Score from "./Score.jsx";
 import { shuffleArray } from "./utils.js";
+import Button from "./Button.jsx";
 
 function App() {
   const [showForm, setShowForm] = useState(true);
@@ -46,6 +48,11 @@ function App() {
   }, [selection, showForm]);
 
   const resetSelection = () => setShowForm(true);
+  const resetCounters = () => {
+    setBestStreak(0);
+    setGuesses([]);
+    setSuccessStreak(0);
+  };
 
   const cards =
     gotData &&
@@ -58,16 +65,22 @@ function App() {
   return (
     <>
       <header>Memory Game!</header>
-      <div className="score">
-        <p>Successful guesses:{successStreak}</p>
-        <p> Best streak: {bestStreak}</p>
-      </div>
       {showForm ? (
         <Form onClick={onFormClick}></Form>
       ) : (
-        <div className="cardContainer">{gotData ? cards : "Loading....."}</div>
+        <>
+          <Score successStreak={successStreak} bestStreak={bestStreak}></Score>
+
+          <div className="cardContainer">
+            {gotData ? cards : "Loading....."}
+          </div>
+          <Score successStreak={successStreak} bestStreak={bestStreak}></Score>
+          <div className="buttons">
+            <Button onClick={resetSelection} text="Select new images"></Button>
+            <Button onClick={resetCounters} text="Reset Score"></Button>
+          </div>
+        </>
       )}
-      {!showForm && <button onClick={resetSelection}>Select new images</button>}
     </>
   );
 }
