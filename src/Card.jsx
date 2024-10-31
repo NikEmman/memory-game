@@ -1,10 +1,8 @@
 import getPhotoUrl from "./utils.js";
 
-export default function Card({ photo }) {
+export default function Card({ photo, onCardClick }) {
   const url = getPhotoUrl(photo);
   return (
-    <div className="card">
-      <img src={url} alt={photo.title} />
-    </div>
+    <img id={photo.id} onClick={onCardClick} src={url} alt={photo.title} />
   );
 }

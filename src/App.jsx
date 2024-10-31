@@ -1,41 +1,3 @@
-// import { useState, useEffect } from "react";
-// import "./App.css";
-// import Form from "./Form";
-// import fetchPhotos from "./data.js";
-
-// function App() {
-//   const [showForm, setShowForm] = useState(true);
-//   const [selection, setSelection] = useState("");
-//   const [photoData, setPhotoData] = useState(false);
-
-//   const gotData = photoData && photoData.stat === "ok";
-//   let cards = "Here are your cards";
-
-//   const onClick = () => {
-//     setShowForm(false);
-//     const selectedItem = document.getElementById("themes").value;
-//     setSelection(selectedItem);
-//   };
-
-//   useEffect(() => {
-//     const photos = fetchPhotos(selection);
-//     setPhotoData(photos);
-//   }, [selection, showForm]);
-//   return (
-//     <>
-//       <header>Memory Game!</header>
-//       {showForm ? (
-//         <Form onClick={onClick}></Form>
-//       ) : (
-//         <div className="cardContainer">
-//           {gotData ? cards : "No photos found. Try reloading the page!"}
-//         </div>
-//       )}
-//     </>
-//   );
-// }
-
-// export default App;
 import { useState, useEffect } from "react";
 import "./App.css";
 import Form from "./Form";
@@ -47,21 +9,30 @@ function App() {
   const [showForm, setShowForm] = useState(true);
   const [selection, setSelection] = useState("");
   const [photoData, setPhotoData] = useState(null);
+  const [successStreak, setSuccessStreak] = useState(0);
+  const [guesses, setGuesses] = useState([]);
+  const [bestStreak, setBestStreak] = useState(0);
 
   const gotData = photoData !== null && photoData.stat === "ok";
 
-  const cards =
-    gotData &&
-    shuffleArray(
-      photoData.photos.photo.map((photo) => (
-        <Card key={photo.id} photo={photo}></Card>
-      ))
-    );
-
-  const onClick = () => {
+  const onFormClick = () => {
     setShowForm(false);
     const selectedItem = document.getElementById("themes").value;
     setSelection(selectedItem);
+    setSuccessStreak(0);
+    setGuesses([]);
+  };
+  const onCardClick = (e) => {
+    const id = e.target.id;
+    if (guesses.includes(id)) {
+      bestStreak < successStreak && setBestStreak(successStreak);
+      setGuesses([]);
+      setSuccessStreak(0);
+    } else {
+      setGuesses([...guesses, id]);
+      setSuccessStreak(successStreak + 1);
+      bestStreak < successStreak + 1 && setBestStreak(successStreak + 1);
+    }
   };
 
   useEffect(() => {
@@ -76,11 +47,23 @@ function App() {
 
   const resetSelection = () => setShowForm(true);
 
+  const cards =
+    gotData &&
+    shuffleArray(
+      photoData.photos.photo.map((photo) => (
+        <Card key={photo.id} onCardClick={onCardClick} photo={photo}></Card>
+      ))
+    );
+
   return (
     <>
       <header>Memory Game!</header>
+      <div className="score">
+        <p>Successful guesses:{successStreak}</p>
+        <p> Best streak: {bestStreak}</p>
+      </div>
       {showForm ? (
-        <Form onClick={onClick}></Form>
+        <Form onClick={onFormClick}></Form>
       ) : (
         <div className="cardContainer">{gotData ? cards : "Loading....."}</div>
       )}

@@ -1,9 +1,14 @@
 img {
-  width: 200px; /* Specify your desired width */
-  height: 200px; /* Specify your desired height */
-  object-fit: cover; /* Ensures the images cover the specified dimensions without distortion */
-  margin: 10px; /* Add some margin if necessary */
-}
-.card {
   width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+  border-radius: 10px;
+}
+img:hover {
+  cursor: pointer;
+  outline: 2px solid blue;
+}
+img:active {
+  transform: translate(3px, 3px);
 }
