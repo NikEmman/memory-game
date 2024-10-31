@@ -40,7 +40,8 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Form from "./Form";
 import fetchPhotos from "./data.js";
-import getPhotoUrl from "./utils.js";
+import Card from "./Card.jsx";
+import { shuffleArray } from "./utils.js";
 
 function App() {
   const [showForm, setShowForm] = useState(true);
@@ -49,12 +50,13 @@ function App() {
 
   const gotData = photoData !== null && photoData.stat === "ok";
 
-  let cards =
+  const cards =
     gotData &&
-    photoData.photos.photo.map((photo) => {
-      const url = getPhotoUrl(photo);
-      return <img key={photo.id} src={url} alt={photo.title} />;
-    });
+    shuffleArray(
+      photoData.photos.photo.map((photo) => (
+        <Card key={photo.id} photo={photo}></Card>
+      ))
+    );
 
   const onClick = () => {
     setShowForm(false);
