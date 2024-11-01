@@ -66,7 +66,25 @@ function App() {
     <>
       <header>Memory Game!</header>
       {showForm ? (
-        <Form onClick={onFormClick}></Form>
+        <>
+          <Form onClick={onFormClick}></Form>
+          <div className="instructions">
+            <h2>How to play</h2>
+            <ul>
+              <li>
+                Select an item, images related to it will be pulled from online
+                source.
+              </li>
+              <li>
+                The goal is to click each image only once. Images are then
+                shuffled
+              </li>
+              <li>
+                A score keeps track of correct guesses and best attempt so far.
+              </li>
+            </ul>
+          </div>
+        </>
       ) : (
         <>
           <Score successStreak={successStreak} bestStreak={bestStreak}></Score>
@@ -74,7 +92,6 @@ function App() {
           <div className="cardContainer">
             {gotData ? cards : "Loading....."}
           </div>
-          <Score successStreak={successStreak} bestStreak={bestStreak}></Score>
           <div className="buttons">
             <Button onClick={resetSelection} text="Select new images"></Button>
             <Button onClick={resetCounters} text="Reset Score"></Button>

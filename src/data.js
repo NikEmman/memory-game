@@ -1,6 +1,6 @@
 function getUrl(searchText) {
-  const apiKey = import.meta.env.VITE_FLICKR_API_KEY;
-
+  // const apiKey = import.meta.env.VITE_FLICKR_API_KEY;
+  const apiKey = "2c65578a245856acbf6c1ce988f537b3";
   const data = {
     method: "flickr.photos.search",
     api_key: apiKey,

@@ -1,8 +1,20 @@
-# React + Vite
+# Memory Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a [The Odin Project](https://www.theodinproject.com/lessons/react-new-memory-card) curriculum project made by using React.
 
-Currently, two official plugins are available:
+## Project Goals
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Demonstrate basic concepts of building a React app, like:
+
+- Creating components.
+- Using state to control said components.
+- Passing state to children components and back up the chain.
+- Using effect to make an API call to fetch photos from Flickr.
+
+## Game description
+
+It is a memory game where 12 photos appear and the player has to click on them consecutively, each only once. After each click the photos get shuffled. If a photo is clicked more than once score resets.
+
+Here is a [live version](https://deluxe-pastelito-751e93.netlify.app/) of the game.
+
+Enjoy!
